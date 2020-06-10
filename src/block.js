@@ -44,10 +44,10 @@ class Block {
             var newBlockHash=SHA256(JSON.stringify(self)).toString();
             // Comparing if the hashes changed
             if(newBlockHash===currentBlockHash){
-              resolve("Block is valid");
+              resolve(true);
             }
             else{
-              reject("Block is invalid");
+              reject(false);
             }
             // Returning the Block is not valid
             // Returning the Block is valid
