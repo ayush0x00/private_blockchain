@@ -65,12 +65,14 @@ class Blockchain {
         let self = this;
         return new Promise(async (resolve, reject) => {
           if(self.height>0)
-            self.previousBlockHash=self.chain[self.chain.length-1].hash;
-          self.height=self.chain.length+1;
-          self.timestamp=new Date().getTime().toString().slice(0,-3);
-          self.hash=SHA256(JSON.stringify(self)).toString();
-        }).then(self.chain.push(block)).catch("error adding block");
-    }
+            block.previousBlockHash=self.chain[self.chain.length-1].hash;
+          block.height=self.chain.length+1;
+          block.timestamp=new Date().getTime().toString().slice(0,-3);
+          block.hash=SHA256(JSON.stringify(self)).toString();
+          self.height++;
+          resolve(block);
+        })
+
 
     /**
      * The requestMessageOwnershipVerification(address) method
@@ -82,7 +84,7 @@ class Blockchain {
      */
     requestMessageOwnershipVerification(address) {
         return new Promise((resolve) => {
-            resolve(address:${new Date().getTime().toString().slice(0,-3)}:starRegistry);
+            resolve(${address}:${new Date().getTime().toString().slice(0,-3)}:starRegistry);
         });
     }
 
