@@ -70,9 +70,10 @@ class Blockchain {
           block.timestamp=new Date().getTime().toString().slice(0,-3);
           block.hash=SHA256(JSON.stringify(self)).toString();
           self.height++;
+          self.chain.push(block);
           resolve(block);
         })
-
+}
 
     /**
      * The requestMessageOwnershipVerification(address) method
@@ -84,7 +85,7 @@ class Blockchain {
      */
     requestMessageOwnershipVerification(address) {
         return new Promise((resolve) => {
-            resolve(${address}:${new Date().getTime().toString().slice(0,-3)}:starRegistry);
+            resolve('${address}:${new Date().getTime().toString().slice(0,-3)}:starRegistry');
         });
     }
 
