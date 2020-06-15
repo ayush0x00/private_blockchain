@@ -67,7 +67,7 @@ class Blockchain {
           if(self.height>0)
             block.previousBlockHash=self.chain[self.chain.length-1].hash;
           block.height=self.chain.length+1;
-          block.timestamp=new Date().getTime().toString().slice(0,-3);
+          block.time=new Date().getTime().toString().slice(0,-3);
           block.hash=SHA256(JSON.stringify(self)).toString();
           self.height++;
           self.chain.push(block);
