@@ -112,8 +112,11 @@ class Blockchain {
             let time=parseInt(message.split(':')[1]);
             let currentTime=parseInt(new Date().getTime().toString().slice(0,-3));
             if(currentTime-time<300)
-              bitcoinMessage.verify(message,address,signature);
-        }).then(self.chain.push(new Block(star)));
+              let output=bitcoinMessage.verify(message,address,signature);
+            if(output){
+              resolve(self._addBlock({address:address,data:star}));
+            }
+        })
     }
 
     /**
@@ -190,7 +193,7 @@ class Blockchain {
                      if (!validation){
                          console.log("ERROR VALIDATING DATA");
                      } else if (block.previousBlockHash != self.chain[i-1].hash) {
-                         console.log("ERROR WITH PREVIOUS BLOCK HASH");
+                         errorLog.push("Error validating the data");
                      }
                  }
                  if (errorLog) {
